@@ -1,270 +1,1481 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
-  <title>My Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    SBSDynamics | Shaharyaar Samuel
+  </title>
+
+
+  <!-- =====================================================
+       SKIP PRELOADER ON REFRESH
+       =====================================================
+
+       Once the visitor has clicked Enter during this tab
+       session, refreshing will not show the preloader again.
+
+       This is placed in the HEAD so the preloader does not
+       briefly flash before JavaScript hides it.
+       ===================================================== -->
+
+  <script>
+
+    if (
+      sessionStorage.getItem("sbsEntered") === "true"
+    ) {
+
+      document.documentElement.classList.add(
+        "skip-preloader"
+      );
+
+    }
+
+  </script>
+
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
+
 </head>
+
+
 <body>
 
-  <!-- PRELOADER OVERLAY -->
+
+  <!-- =====================================================
+       PRELOADER
+       ===================================================== -->
+
   <div id="preloader">
+
+
+    <!-- VANTA.NET BACKGROUND -->
+
     <div id="preloader-bg"></div>
 
+
+
     <div class="preloader-content">
-      <!-- Big logo in center -->
+
+
+      <!-- LOGO -->
+
       <div class="preloader-logo">
-        <img src="assets/logo1.png" alt="SBSDynamics logo" />
+
+        <img
+          src="assets/logo1.png"
+          alt="SBSDynamics logo"
+        />
+
       </div>
 
-      <!-- Button that appears after a delay -->
-      <button id="enter-btn" class="preloader-button">
+
+
+      <!-- ENTER -->
+
+      <button
+        id="enter-btn"
+        class="preloader-button"
+        type="button"
+      >
+
         Enter SBSDynamics
+
       </button>
+
+
     </div>
+
+
   </div>
 
-  <!-- BACKGROUND MUSIC -->
-  <!-- TODO: place your audio file at assets/bg-music.mp3 or change the src -->
-  <audio id="bg-audio" src="assets/bg-music1.mp3" loop></audio>
 
-  <header>
-    <div class="logo-area">
-      <div class="logo">
-        <!-- TODO: replace assets/logo.png with your real logo -->
-        <img src="assets/logo1.png" alt="Logo" />
+
+  <!-- =====================================================
+       MAIN WEBSITE SHELL
+       =====================================================
+
+       VANTA.TOPOLOGY is attached to this container.
+
+       Header, pages, music player and footer all live
+       inside the same animated environment.
+       ===================================================== -->
+
+  <div id="site-shell">
+
+
+
+    <!-- ===================================================
+         HEADER
+         =================================================== -->
+
+    <header>
+
+
+      <!-- =================================================
+           BRAND
+           ================================================= -->
+
+      <div class="logo-area">
+
+
+        <div class="logo">
+
+          <img
+            src="assets/logo1.png"
+            alt="SBSDynamics Logo"
+          />
+
+        </div>
+
+
+        <div class="logo-text">
+
+          SBSDynamics Digital Portfolio
+
+        </div>
+
+
       </div>
-      <div class="logo-text">SBSDynamics Digital Portfolio</div>
+
+
+
+      <!-- =================================================
+           NAVIGATION
+           ================================================= -->
+
+      <nav>
+
+
+        <!-- HOME -->
+
+        <button
+          data-page="home"
+          class="animated-btn nav-tech-btn active"
+          type="button"
+        >
+
+          <svg
+            viewBox="0 0 180 54"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+
+            <polygon
+              class="tech-border-base"
+              points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+            />
+
+            <polygon
+              class="tech-border-highlight"
+              pathLength="100"
+              points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+            />
+
+          </svg>
+
+
+          <span class="btn-label">
+            Home
+          </span>
+
+        </button>
+
+
+
+        <!-- ABOUT -->
+
+        <button
+          data-page="about"
+          class="animated-btn nav-tech-btn"
+          type="button"
+        >
+
+          <svg
+            viewBox="0 0 180 54"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+
+            <polygon
+              class="tech-border-base"
+              points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+            />
+
+            <polygon
+              class="tech-border-highlight"
+              pathLength="100"
+              points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+            />
+
+          </svg>
+
+
+          <span class="btn-label">
+            About
+          </span>
+
+        </button>
+
+
+
+        <!-- PROJECTS -->
+
+        <button
+          data-page="projects"
+          class="animated-btn nav-tech-btn"
+          type="button"
+        >
+
+          <svg
+            viewBox="0 0 180 54"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+
+            <polygon
+              class="tech-border-base"
+              points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+            />
+
+            <polygon
+              class="tech-border-highlight"
+              pathLength="100"
+              points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+            />
+
+          </svg>
+
+
+          <span class="btn-label">
+            Projects
+          </span>
+
+        </button>
+
+
+
+        <!-- CONTACT -->
+
+        <button
+          data-page="contact"
+          class="animated-btn nav-tech-btn"
+          type="button"
+        >
+
+          <svg
+            viewBox="0 0 180 54"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+
+            <polygon
+              class="tech-border-base"
+              points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+            />
+
+            <polygon
+              class="tech-border-highlight"
+              pathLength="100"
+              points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+            />
+
+          </svg>
+
+
+          <span class="btn-label">
+            Contact
+          </span>
+
+        </button>
+
+
+      </nav>
+
+
+
+      <!-- =================================================
+           WORLD CLOCKS
+           ================================================= -->
+
+      <div
+        id="timezones"
+        class="timezones"
+      ></div>
+
+
+    </header>
+
+
+
+    <!-- ===================================================
+         MAIN
+         =================================================== -->
+
+    <main>
+
+
+
+      <!-- =================================================
+           HOME
+           ================================================= -->
+
+      <section
+        id="home"
+        class="page active-page"
+      >
+
+
+        <div class="page-inner home-layout">
+
+
+          <!-- HOME TEXT -->
+
+          <div class="home-text">
+
+
+            <h1 class="home-title">
+
+              Hey, I'm
+
+              <span class="accent">
+                Shaharyaar
+              </span>.
+
+            </h1>
+
+
+
+            <p class="home-subtitle">
+
+              I'm a Junior Computer Engineer based in the
+              Dallas–Fort Worth area, with two years of
+              cross-functional experience across system
+              reliability, quality engineering,
+              hardware-focused development, and full-stack
+              work.
+
+              I enjoy learning new technologies, building
+              practical solutions, and creating engineering
+              systems that move beyond efficiency — things
+              that are useful, modern, and built to make
+              an impact.
+
+            </p>
+
+
+
+            <!-- HOME ACTIONS -->
+
+            <div class="home-actions">
+
+
+              <!-- VIEW PROJECTS -->
+
+              <button
+                class="
+                  animated-btn
+                  tech-btn
+                  tech-btn-primary
+                "
+                data-page-jump="projects"
+                type="button"
+              >
+
+                <svg
+                  viewBox="0 0 180 54"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+
+                  <polygon
+                    class="tech-border-base"
+                    points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+                  />
+
+                  <polygon
+                    class="tech-border-highlight"
+                    pathLength="100"
+                    points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+                  />
+
+                </svg>
+
+
+                <span class="btn-label">
+                  View Projects
+                </span>
+
+              </button>
+
+
+
+              <!-- ABOUT ME -->
+
+              <button
+                class="
+                  animated-btn
+                  tech-btn
+                  tech-btn-secondary
+                "
+                data-page-jump="about"
+                type="button"
+              >
+
+                <svg
+                  viewBox="0 0 180 54"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+
+                  <polygon
+                    class="tech-border-base"
+                    points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+                  />
+
+                  <polygon
+                    class="tech-border-highlight"
+                    pathLength="100"
+                    points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+                  />
+
+                </svg>
+
+
+                <span class="btn-label">
+                  About Me
+                </span>
+
+              </button>
+
+
+            </div>
+
+
+
+            <!-- CURRENT -->
+
+            <div class="home-now">
+
+
+              <h2 class="section-heading-sm">
+                Now
+              </h2>
+
+
+              <p>
+
+                Currently, I'm exploring engineering roles
+                where I can make a real impact and apply
+                what I've been building.
+
+                Outside of work, I'm developing a variety
+                of side projects to broaden my skill stack,
+                all featured on the Projects page.
+
+              </p>
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- =================================================
+               HOME IMAGE
+               ================================================= -->
+
+          <div class="home-image">
+
+
+            <div
+              class="hero-image"
+              title="DFW skyline"
+            >
+
+
+              <img
+                src="assets/dfw.jpg"
+                alt="DFW skyline"
+                class="hero-image-img"
+              />
+
+
+              <span class="hero-image-label">
+
+                Image taken by Max Fray
+
+              </span>
+
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+
+      <!-- =================================================
+           ABOUT
+           ================================================= -->
+
+      <section
+        id="about"
+        class="page"
+      >
+
+
+        <div class="page-inner about-layout">
+
+
+          <!-- PHOTO -->
+
+          <div class="about-photo-wrap">
+
+
+            <div class="about-photo">
+
+              <img
+                src="assets/me.jpeg"
+                alt="Shaharyaar Samuel"
+              />
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- ABOUT TEXT -->
+
+          <div class="about-text">
+
+
+            <h1 class="section-heading">
+
+              About Me
+
+            </h1>
+
+
+
+            <p class="section-subtitle">
+
+              I'm a computer engineer with a broad passion
+              for designing, building, and exploring
+              real-world engineering systems.
+
+              I don't limit myself to one area. I like
+              working across hardware, software,
+              electronics, and emerging technologies to
+              create things that are useful,
+              forward-thinking, and impactful.
+
+              Whether it's a new tool, a technical system,
+              or a unique idea, I enjoy figuring out how
+              things work and how they can be made better.
+
+            </p>
+
+
+
+            <!-- SUMMARY -->
+
+            <div class="about-section">
+
+
+              <h2 class="section-heading-sm">
+
+                Summary
+
+              </h2>
+
+
+              <p>
+
+                I recently graduated with a B.S. in
+                Computer Engineering from the University
+                of North Texas, and my experience spans
+                quality engineering, IT operations,
+                embedded development, system design, and
+                full-stack projects.
+
+                I'm driven by curiosity and the challenge
+                of learning new technologies quickly — if
+                something needs to be built, analyzed,
+                fixed, or engineered, I'm the type of
+                person who jumps in and figures it out.
+
+                My goal isn't just to improve efficiency
+                or scale systems; it's to create and
+                develop engineering solutions that belong
+                in the modern world — solutions that push
+                boundaries, solve real problems, and make
+                a tangible difference.
+
+              </p>
+
+
+            </div>
+
+
+
+            <!-- INTERESTS -->
+
+            <div class="about-section">
+
+
+              <h2 class="section-heading-sm">
+
+                What I Like To Do
+
+              </h2>
+
+
+              <ul class="pill-list">
+
+
+                <li class="pill">
+                  Building side projects
+                </li>
+
+
+                <li class="pill">
+                  Playing with embedded / IoT
+                </li>
+
+
+                <li class="pill">
+                  Learning new tools / stacks
+                </li>
+
+
+                <li class="pill">
+                  Aviation / Rail Systems
+                </li>
+
+
+                <li class="pill">
+                  Traveling
+                </li>
+
+
+              </ul>
+
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+
+      <!-- =================================================
+           PROJECTS
+           ================================================= -->
+
+      <section
+        id="projects"
+        class="page"
+      >
+
+
+        <div class="page-inner">
+
+
+          <h1 class="section-heading">
+
+            Projects
+
+          </h1>
+
+
+          <p class="section-subtitle">
+
+            Engineering projects, prototypes,
+            experiments, and works in progress.
+
+          </p>
+
+
+
+          <!--
+            ALL PROJECT CARDS ARE GENERATED
+            AUTOMATICALLY FROM projects.js
+          -->
+
+          <div
+            id="projects-grid"
+            class="projects-grid"
+          ></div>
+
+
+        </div>
+
+
+      </section>
+
+
+
+      <!-- =================================================
+           CONTACT
+           ================================================= -->
+
+      <section
+        id="contact"
+        class="page"
+      >
+
+
+        <div class="page-inner contact-layout">
+
+
+          <!-- =================================================
+               CONTACT FORM
+               ================================================= -->
+
+          <div class="contact-main">
+
+
+            <h1 class="section-heading">
+
+              Contact Me
+
+            </h1>
+
+
+            <p class="section-subtitle">
+
+              Want to get in touch?
+
+              Use the form below and your message will
+              be sent directly to my inbox.
+
+            </p>
+
+
+
+            <!--
+              IMPORTANT:
+
+              Replace YOUR_FORM_ID with the real Formspree
+              endpoint you already created.
+
+              Example:
+
+              https://formspree.io/f/abcdefgh
+            -->
+
+            <form
+              id="contact-form"
+              class="contact-form"
+              action="https://formspree.io/f/YOUR_FORM_ID"
+              method="POST"
+            >
+
+
+              <!-- NAME -->
+
+              <div class="form-field">
+
+                <label for="name">
+                  Name
+                </label>
+
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Your name"
+                  required
+                />
+
+              </div>
+
+
+
+              <!-- EMAIL -->
+
+              <div class="form-field">
+
+                <label for="email">
+                  Email
+                </label>
+
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  required
+                />
+
+              </div>
+
+
+
+              <!-- MESSAGE -->
+
+              <div class="form-field">
+
+                <label for="message">
+                  Message
+                </label>
+
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  placeholder="Your message..."
+                  required
+                ></textarea>
+
+              </div>
+
+
+
+              <!-- HONEYPOT SPAM TRAP -->
+
+              <input
+                type="text"
+                name="_gotcha"
+                class="hidden-field"
+                tabindex="-1"
+                autocomplete="off"
+              />
+
+
+
+              <!-- SEND -->
+
+              <button
+                type="submit"
+                id="submit-btn"
+                class="
+                  animated-btn
+                  tech-btn
+                  tech-btn-primary
+                  contact-tech-btn
+                "
+              >
+
+                <svg
+                  viewBox="0 0 180 54"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+
+                  <polygon
+                    class="tech-border-base"
+                    points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+                  />
+
+                  <polygon
+                    class="tech-border-highlight"
+                    pathLength="100"
+                    points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+                  />
+
+                </svg>
+
+
+                <span class="btn-label">
+                  Send Message
+                </span>
+
+              </button>
+
+
+
+              <!-- STATUS -->
+
+              <p
+                id="form-status"
+                class="form-status"
+                aria-live="polite"
+              ></p>
+
+
+
+              <p class="form-note">
+
+                Or email me directly at
+
+                <a
+                  class="inline-link"
+                  href="mailto:shaharyaarsamuel@gmail.com"
+                >
+                  shaharyaarsamuel@gmail.com
+                </a>.
+
+              </p>
+
+
+            </form>
+
+
+          </div>
+
+
+
+          <!-- =================================================
+               CONTACT SIDE
+               ================================================= -->
+
+          <div class="contact-side">
+
+
+            <!-- RESUME -->
+
+            <div class="contact-card">
+
+
+              <h2 class="section-heading-sm">
+
+                Resume
+
+              </h2>
+
+
+              <p>
+
+                View my resume in the browser
+                or download a copy.
+
+              </p>
+
+
+
+              <div class="resume-actions">
+
+
+                <!-- VIEW RESUME -->
+
+                <a
+                  class="
+                    animated-btn
+                    tech-btn
+                    tech-btn-primary
+                    resume-tech-btn
+                  "
+                  href="assets/resume.pdf"
+                  target="_blank"
+                  rel="noopener"
+                >
+
+                  <svg
+                    viewBox="0 0 180 54"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
+
+                    <polygon
+                      class="tech-border-base"
+                      points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+                    />
+
+                    <polygon
+                      class="tech-border-highlight"
+                      pathLength="100"
+                      points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+                    />
+
+                  </svg>
+
+
+                  <span class="btn-label">
+
+                    View Resume
+
+                  </span>
+
+                </a>
+
+
+
+                <!-- DOWNLOAD RESUME -->
+
+                <a
+                  class="
+                    animated-btn
+                    tech-btn
+                    tech-btn-secondary
+                    resume-tech-btn
+                  "
+                  href="assets/resume.pdf"
+                  download="Shaharyaar_Samuel_Resume.pdf"
+                >
+
+                  <svg
+                    viewBox="0 0 180 54"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
+
+                    <polygon
+                      class="tech-border-base"
+                      points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+                    />
+
+                    <polygon
+                      class="tech-border-highlight"
+                      pathLength="100"
+                      points="12,1 179,1 179,42 167,53 1,53 1,12 12,1"
+                    />
+
+                  </svg>
+
+
+                  <span class="btn-label">
+
+                    ↓ Download PDF
+
+                  </span>
+
+                </a>
+
+
+              </div>
+
+
+            </div>
+
+
+
+            <!-- ELSEWHERE -->
+
+            <div class="contact-card">
+
+
+              <h2 class="section-heading-sm">
+
+                Elsewhere
+
+              </h2>
+
+
+              <ul class="link-list">
+
+
+                <li>
+
+                  <a
+                    href="https://github.com/shaharyaarsamu1"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    GitHub
+                  </a>
+
+                </li>
+
+
+
+                <li>
+
+                  <!--
+                    REPLACE # WITH YOUR REAL LINKEDIN URL
+                  -->
+
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    LinkedIn
+                  </a>
+
+                </li>
+
+
+              </ul>
+
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+    </main>
+
+
+
+    <!-- ===================================================
+         BACKGROUND MUSIC
+         =================================================== -->
+
+    <audio
+      id="bg-music"
+      loop
+      preload="metadata"
+    >
+
+      <source
+        src="assets/music/smooth-lovin.mp3"
+        type="audio/mpeg"
+      />
+
+    </audio>
+
+
+
+    <!-- ===================================================
+         MUSIC CONTROL PANEL
+         =================================================== -->
+
+    <div
+      id="music-player"
+      class="music-player"
+    >
+
+
+      <div class="music-top-row">
+
+
+        <!-- MUSIC INFO -->
+
+        <div class="music-info">
+
+
+          <div class="music-label">
+
+            NOW PLAYING
+
+          </div>
+
+
+          <div class="music-title">
+
+            Smooth Lovin
+
+          </div>
+
+
+          <div class="music-artist">
+
+            Kevin MacLeod
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- MINI STATUS INDICATOR -->
+
+        <div
+          id="music-indicator"
+          class="music-indicator"
+          aria-hidden="true"
+        >
+
+          <span></span>
+          <span></span>
+          <span></span>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- CONTROLS -->
+
+      <div class="music-controls">
+
+
+        <!-- PLAY / PAUSE -->
+
+        <button
+          id="music-play"
+          class="music-control-btn"
+          type="button"
+          aria-label="Play background music"
+          title="Play / Pause"
+        >
+
+          ▶
+
+        </button>
+
+
+
+        <!-- MUTE -->
+
+        <button
+          id="music-mute"
+          class="music-control-btn"
+          type="button"
+          aria-label="Mute background music"
+          title="Mute / Unmute"
+        >
+
+          🔊
+
+        </button>
+
+
+
+        <!-- VOLUME -->
+
+        <div class="volume-control">
+
+
+          <span class="volume-label">
+
+            VOL
+
+          </span>
+
+
+          <input
+            id="music-volume"
+            class="music-volume"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            value="12"
+            aria-label="Background music volume"
+          />
+
+
+          <span
+            id="volume-value"
+            class="volume-value"
+          >
+
+            12
+
+          </span>
+
+
+        </div>
+
+
+      </div>
+
+
     </div>
 
-    <nav>
-      <button data-page="home" class="active">Home</button>
-      <button data-page="about">About</button>
-      <button data-page="projects">Projects</button>
-      <button data-page="contact">Contact</button>
-    </nav>
 
-    <div id="timezones" class="timezones"></div>
-  </header>
 
-  <main>
-    <!-- ====== HOME ====== -->
-    <section id="home" class="page active-page">
-      <div class="page-inner home-layout">
-        <div class="home-text">
-          <h1 class="home-title">
-            <!-- TODO: put your name + title here -->
-            Hey, I’m <span class="accent">Shaharyaar</span>.
-          </h1>
-          <p class="home-subtitle">
-            <!-- TODO: short 1–2 sentence blurb about what you do -->
-         I'm a Junior Computer Engineer based in the Dallas–Fort Worth area, with two years of cross-functional experience across system reliability, quality engineering, hardware-focused development, and full-stack work. I enjoy learning new technologies, building practical solutions, and creating engineering systems that move beyond efficiency, things that are useful, modern, and built to make an impact.
-          </p>
+    <!-- ===================================================
+         FOOTER
+         =================================================== -->
 
-          <div class="home-actions">
-            <button class="primary-btn" data-page-jump="projects">View Projects</button>
-            <button class="ghost-btn" data-page-jump="about">About Me</button>
+    <footer class="site-footer">
+
+
+      <div class="footer-inner">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-brand">
+
+
+          <div class="footer-logo">
+
+            <img
+              src="assets/logo1.png"
+              alt="SBSDynamics"
+            />
+
           </div>
 
-          <div class="home-now">
-            <h2 class="section-heading-sm">Now</h2>
-            <p>
-              <!-- TODO: update this with what you’re currently focused on (e.g. job search, projects, learning) -->
-             Currently: I’m exploring engineering roles where I can make a real impact and apply what I’ve been building. Outside of work, I’m developing a variety of side projects to broaden my skill stack, all featured on the Projects page.
-            </p>
+
+          <div>
+
+            <div class="footer-name">
+
+              Shaharyaar Samuel
+
+            </div>
+
+
+            <div class="footer-title">
+
+              Computer Engineer
+
+            </div>
+
           </div>
+
+
         </div>
 
-        <div class="home-image">
-          <!-- TODO: replace assets/dfw.jpg with an actual DFW area photo -->
-          <div class="hero-image" title="DFW skyline">
-            <img src="assets/dfw.jpg" alt="DFW skyline" class="hero-image-img" />
-            <span class="hero-image-label">Image taken by Max Fray</span>
-          </div>
+
+
+        <!-- CONTACT / LINKS -->
+
+        <div class="footer-info">
+
+
+          <span>
+
+            Dallas–Fort Worth, Texas
+
+          </span>
+
+
+          <span class="footer-divider">
+            /
+          </span>
+
+
+          <a
+            href="mailto:shaharyaarsamuel@gmail.com"
+          >
+
+            Email
+
+          </a>
+
+
+          <span class="footer-divider">
+            /
+          </span>
+
+
+          <a
+            href="https://github.com/shaharyaarsamu1"
+            target="_blank"
+            rel="noopener"
+          >
+
+            GitHub
+
+          </a>
+
+
+          <span class="footer-divider">
+            /
+          </span>
+
+
+          <!--
+            REPLACE # WITH YOUR REAL LINKEDIN URL
+          -->
+
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener"
+          >
+
+            LinkedIn
+
+          </a>
+
+
         </div>
+
+
+
+        <!-- COPYRIGHT -->
+
+        <div class="footer-copyright">
+
+          ©
+          <span id="copyright-year"></span>
+          SBSDynamics
+
+        </div>
+
+
       </div>
-    </section>
 
-    <!-- ====== ABOUT ====== -->
-    <section id="about" class="page">
-      <div class="page-inner about-layout">
-        <div class="about-photo-wrap">
-          <!-- TODO: replace assets/me.jpg with your photo -->
-          <div class="about-photo">
-            <img src="assets/me.jpeg" alt="Your photo" />
-          </div>
-        </div>
 
-        <div class="about-text">
-          <h1 class="section-heading">About Me</h1>
-          <p class="section-subtitle">
-            <!-- TODO: 1–2 sentence summary about who you are -->
-            I’m a computer engineer with a broad passion for designing, building, and exploring real-world engineering systems. I don’t limit myself to one area, I like working across hardware, software, electronics, and emerging technologies to create things that are useful, forward-thinking, and impactful. Whether it’s a new tool, a technical system, or a unique idea, I enjoy figuring out how things work and how they can be made better.
-          </p>
+    </footer>
 
-          <div class="about-section">
-            <h2 class="section-heading-sm">Summary</h2>
-            <p>
-              <!-- TODO: paste your main “about” paragraph(s) here -->
-              I recently graduated with a B.S. in Computer Engineering from the University of North Texas, and my experience spans quality engineering, IT operations, embedded development, system design, and full-stack projects. I’m driven by curiosity and the challenge of learning new technologies quickly — if something needs to be built, analyzed, fixed, or engineered, I’m the type of person who jumps in and figures it out.
 
-My goal isn’t just to improve efficiency or scale systems; it’s to create and develop engineering solutions that belong in the modern world, solutions that push boundaries, solve real problems, and make a tangible difference.
-            </p>
-          </div>
+  </div>
 
-          <div class="about-section">
-            <h2 class="section-heading-sm">What I Like To Do</h2>
-            <ul class="pill-list">
-              <!-- TODO: replace these with things you actually like doing -->
-              <li class="pill">Building side projects</li>
-              <li class="pill">Playing with embedded / IoT</li>
-              <li class="pill">Learning new tools / stacks</li>
-              <li class="pill">Aviation/Rail Systems</li>
-              <li class="pill">Traveling</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ====== PROJECTS ====== -->
-    <section id="projects" class="page">
-      <div class="page-inner">
-        <h1 class="section-heading">Projects</h1>
-        <p class="section-subtitle">
-          <!-- TODO: 1–2 lines describing what kind of projects you put here -->
-          Current projects in the works.
-        </p>
 
-        <div class="projects-grid">
-          <!-- ====== PROJECT CARD 1 ====== -->
-          <article class="project-card">
-            <div class="project-image-wrap">
-              <!-- TODO: replace with your real project image -->
-              <img src="assets/project1.jpg" alt="Project 1" />
-            </div>
-            <div class="project-content">
-              <h2 class="project-title">
-                <!-- TODO: project name -->
-                Hydroponics system (in R&D phase)
-              </h2>
-              <p class="project-description">
-                <!-- TODO: short description -->
-                A fully automated hydroponics platform designed to monitor plant health, control nutrient flow, and manage environmental conditions in real time.
-              </p>
-              <div class="project-layers">
-                <h3>Layers</h3>
-                <ul>
-                  <!-- TODO: replace items with the layers for this project -->
-                  <li>Hardware: ESP32, relays, sensors</li>
-                  <li>Backend: Node.js, AWS RDS, RabbitMQ</li>
-                  <li>Frontend: Android (Java/Kotlin), MPAndroidChart</li>
-                </ul>
-              </div>
-            </div>
-          </article>
+  <!-- =====================================================
+       LIBRARIES
+       ===================================================== -->
 
-          <!-- ====== PROJECT CARD 2 (example shell) ====== -->
-          <article class="project-card">
-            <div class="project-image-wrap">
-              <!-- TODO: replace with another project image -->
-              <img src="assets/project2.jpg" alt="Project 2" />
-            </div>
-            <div class="project-content">
-              <h2 class="project-title">
-                <!-- TODO: project name -->
-                Music Enhancer App (R&D Phase)
-              </h2>
-              <p class="project-description">
-                <!-- TODO: short description of what this project does -->
-               A digital audio enhancement tool that will be designed to apply custom slow, pitch-shifted, and atmospheric effects to music. The goal is to create a unique listening experience inspired by slowed, pitched, and ambient production styles.
-              </p>
-              <div class="project-layers">
-                <h3>Layers</h3>
-                <ul>
-                  <!-- TODO: list the stack / layers -->
-                  <li>Engine: Audio processing algorithims (slow, pitch, effects) There will also be A.I and M.L involvement </li>
-                  <li>Backend: Python for handling audio tasks & storage</li>
-                  <li>Frontend: Python U.I or Command Line Interface</li>
-                </ul>
-              </div>
-            </div>
-          </article>
 
-          <!-- You can copy-paste more <article class="project-card"> blocks as needed -->
-        </div>
-      </div>
-    </section>
+  <!-- THREE.JS FOR PRELOADER NET -->
 
-    <!-- ====== CONTACT ====== -->
-    <section id="contact" class="page">
-      <div class="page-inner contact-layout">
-        <div class="contact-main">
-          <h1 class="section-heading">Contact Me</h1>
-          <p class="section-subtitle">
-            <!-- TODO: update how you prefer people to contact you -->
-            Want to get in touch? Use the form, or reach me directly here at:
-          </p>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"
+  ></script>
 
-          <form id="contact-form" class="contact-form">
-            <!-- NOTE: this is just a front-end shell; you can wire it up later -->
-            <div class="form-field">
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" placeholder="Your name" />
-            </div>
 
-            <div class="form-field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" />
-            </div>
 
-            <div class="form-field">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="4" placeholder="はじめまして"></textarea>
-            </div>
+  <!-- VANTA NET -->
 
-            <button type="submit" class="primary-btn">Submit</button>
-            <p class="form-note">
-              <!-- TODO: put your real email here -->
-              Or email me directly at <span class="accent"> shaharyaarsamuel@gmail.com</span>.
-            </p>
-          </form>
-        </div>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"
+  ></script>
 
-        <div class="contact-side">
-          <div class="contact-card">
-            <h2 class="section-heading-sm">Resume</h2>
-            <p>
-              <!-- TODO: put your resume path in the href below -->
-              You can view or download my resume here:
-            </p>
-            <a class="primary-btn full-width" href="assets/resume.pdf" target="_blank" rel="noopener">
-              Open Resume (PDF)
-            </a>
-          </div>
 
-          <div class="contact-card">
-            <h2 class="section-heading-sm">Elsewhere</h2>
-            <ul class="link-list">
-              <!-- TODO: add your real links -->
-              <li><a href="#" target="_blank" rel="noopener">GitHub</a></li>
-              <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
-              <li><a href="#" target="_blank" rel="noopener">Other link</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
 
-  <!-- VANTA + THREE (from CDN) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.globe.min.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.birds.min.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.halo.min.js"></script> -->
+  <!-- P5.JS FOR TOPOLOGY -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.min.js"
+  ></script>
+
+
+
+  <!-- VANTA TOPOLOGY -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.topology.min.js"
+  ></script>
+
+
+
+  <!-- PROJECT DATABASE MUST LOAD FIRST -->
+
+  <script src="projects.js"></script>
+
+
+
+  <!-- MAIN WEBSITE JS -->
 
   <script src="script.js"></script>
+
+
 </body>
+
 </html>
