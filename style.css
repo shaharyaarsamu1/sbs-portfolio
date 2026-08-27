@@ -330,6 +330,7 @@ html.skip-preloader
   object-fit:
     contain;
 
+  transform: translateX(-12px);
 }
 
 
