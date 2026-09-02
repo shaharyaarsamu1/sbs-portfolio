@@ -1,6 +1,3 @@
-
-
-
 /* =========================================================
    VANTA EFFECTS
    ========================================================= */
@@ -9,194 +6,88 @@ let vantaEffect = null;
 let topologyEffect = null;
 
 
-
 /* =========================================================
    PAGE ELEMENTS
    ========================================================= */
 
-const buttons =
-  document.querySelectorAll(
-    "nav button[data-page]"
-  );
+const buttons = document.querySelectorAll(
+  "nav button[data-page]"
+);
 
-
-const pages =
-  document.querySelectorAll(
-    "main section.page"
-  );
-
-
-const mainElement =
-  document.querySelector(
-    "main"
-  );
-
+const pages = document.querySelectorAll(
+  "main section.page"
+);
 
 
 /* =========================================================
    MUSIC ELEMENTS
    ========================================================= */
 
-const bgMusic =
-  document.getElementById(
-    "bg-music"
-  );
-
-
-const musicPlayBtn =
-  document.getElementById(
-    "music-play"
-  );
-
-
-const musicMuteBtn =
-  document.getElementById(
-    "music-mute"
-  );
-
-
-const musicVolume =
-  document.getElementById(
-    "music-volume"
-  );
-
-
-const volumeValue =
-  document.getElementById(
-    "volume-value"
-  );
-
-
-const musicIndicator =
-  document.getElementById(
-    "music-indicator"
-  );
-
+const bgMusic = document.getElementById("bg-music");
+const musicPlayBtn = document.getElementById("music-play");
+const musicMuteBtn = document.getElementById("music-mute");
+const musicVolume = document.getElementById("music-volume");
+const volumeValue = document.getElementById("volume-value");
+const musicIndicator = document.getElementById("music-indicator");
 
 
 /* =========================================================
    DOM READY
    ========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+document.addEventListener("DOMContentLoaded", () => {
+
+  setupMusicPlayer();
+
+  setupFooterYear();
+
+  const alreadyEntered =
+    sessionStorage.getItem("sbsEntered") === "true";
+
+  const preloaderBg =
+    document.getElementById("preloader-bg");
 
 
-    /* =====================================================
-       MUSIC PLAYER
-       ===================================================== */
+  /*
+    Only create the NET preloader animation
+    on a fresh entrance.
+  */
 
-    setupMusicPlayer();
+  if (
+    !alreadyEntered &&
+    preloaderBg &&
+    window.VANTA &&
+    window.VANTA.NET
+  ) {
 
+    vantaEffect = VANTA.NET({
 
+      el: preloaderBg,
 
-    /* =====================================================
-       FOOTER YEAR
-       ===================================================== */
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
 
-    setupFooterYear();
+      minHeight: 200.0,
+      minWidth: 200.0,
 
+      scale: 1.0,
+      scaleMobile: 1.0,
 
+      color: 0x2563eb,
+      backgroundColor: 0x050816,
 
-    /* =====================================================
-       PRELOADER VANTA NET
-       ===================================================== */
+      points: 10.0,
+      maxDistance: 20.0,
+      spacing: 18.0
 
-    const alreadyEntered =
-      sessionStorage.getItem(
-        "sbsEntered"
-      ) === "true";
-
-
-    const preloaderBg =
-      document.getElementById(
-        "preloader-bg"
-      );
-
-
-
-    /*
-      Only create the NET preloader animation if this is
-      actually a fresh entrance.
-
-      This prevents a hidden Vanta animation from running
-      unnecessarily after refresh.
-    */
-
-    if (
-      !alreadyEntered &&
-      preloaderBg &&
-      window.VANTA &&
-      window.VANTA.NET
-    ) {
-
-
-      vantaEffect =
-        VANTA.NET({
-
-          el:
-            preloaderBg,
-
-
-          mouseControls:
-            true,
-
-          touchControls:
-            true,
-
-          gyroControls:
-            false,
-
-
-          minHeight:
-            200.0,
-
-          minWidth:
-            200.0,
-
-
-          scale:
-            1.0,
-
-          scaleMobile:
-            1.0,
-
-
-          /* WEBSITE BLUE */
-
-          color:
-            0x2563eb,
-
-
-          /* WEBSITE DARK NAVY */
-
-          backgroundColor:
-            0x050816,
-
-
-          points:
-            10.0,
-
-          maxDistance:
-            20.0,
-
-          spacing:
-            18.0
-
-        });
-
-
-    }
-
-
-
-    setupPreloader();
-
+    });
 
   }
-);
 
+  setupPreloader();
+
+});
 
 
 /* =========================================================
@@ -205,44 +96,24 @@ document.addEventListener(
 
 function setupPreloader() {
 
-
   const preloader =
-    document.getElementById(
-      "preloader"
-    );
-
+    document.getElementById("preloader");
 
   const enterBtn =
-    document.getElementById(
-      "enter-btn"
-    );
-
+    document.getElementById("enter-btn");
 
   const logoWrap =
-    document.querySelector(
-      ".preloader-logo"
-    );
-
-
+    document.querySelector(".preloader-logo");
 
   const alreadyEntered =
-    sessionStorage.getItem(
-      "sbsEntered"
-    ) === "true";
+    sessionStorage.getItem("sbsEntered") === "true";
 
 
-
-  /* =======================================================
-     REFRESH / ALREADY ENTERED
-     ======================================================= */
+  /*
+    REFRESH / ALREADY ENTERED
+  */
 
   if (alreadyEntered) {
-
-
-    /*
-      Completely remove the preloader so it does not
-      sit invisibly above anything.
-    */
 
     if (preloader) {
 
@@ -250,35 +121,18 @@ function setupPreloader() {
 
     }
 
-
-
-    /*
-      Start actual site background immediately.
-    */
-
     setupSiteTopology();
 
-
-
-    /*
-      Attempt to resume the music.
-
-      Browsers may block audible autoplay after a refresh.
-      If that happens, the user simply presses Play.
-    */
-
     attemptMusicPlayback();
-
 
     return;
 
   }
 
 
-
-  /* =======================================================
-     PRELOADER MISSING
-     ======================================================= */
+  /*
+    PRELOADER MISSING
+  */
 
   if (
     !preloader ||
@@ -286,281 +140,154 @@ function setupPreloader() {
     !logoWrap
   ) {
 
-
     setupSiteTopology();
-
 
     return;
 
   }
 
 
+  /*
+    ENTER WEBSITE
+  */
 
-  /* =======================================================
-     ENTER WEBSITE
-     ======================================================= */
+  enterBtn.addEventListener("click", () => {
 
-  enterBtn.addEventListener(
-    "click",
-    () => {
+    sessionStorage.setItem(
+      "sbsEntered",
+      "true"
+    );
+
+    attemptMusicPlayback();
+
+    logoWrap.classList.add(
+      "spin-once"
+    );
 
 
-      /*
-        Remember that this tab/session has entered
-        SBSDynamics.
-      */
+    /*
+      Wait for logo animation.
+    */
 
-      sessionStorage.setItem(
-        "sbsEntered",
-        "true"
+    setTimeout(() => {
+
+      preloader.classList.add(
+        "preloader-hidden"
       );
 
 
-
       /*
-        User interaction lets us start background audio.
+        Open Home.
       */
 
-      attemptMusicPlayback();
-
-
-
-      /*
-        Logo spin.
-      */
-
-      logoWrap.classList.add(
-        "spin-once"
+      switchPage(
+        "home",
+        false
       );
 
 
-
       /*
-        Wait for spin animation.
+        Destroy preloader Vanta effect.
       */
 
-      setTimeout(
-        () => {
+      if (
+        vantaEffect &&
+        typeof vantaEffect.destroy === "function"
+      ) {
+
+        vantaEffect.destroy();
+
+        vantaEffect = null;
+
+      }
 
 
-          /* HIDE PRELOADER */
+      /*
+        Start portfolio topology.
+      */
 
-          preloader.classList.add(
-            "preloader-hidden"
-          );
-
-
-
-          /* OPEN HOME */
-
-          switchPage(
-            "home",
-            false
-          );
+      setupSiteTopology();
 
 
+      /*
+        Remove preloader after fade.
+      */
 
-          /* DESTROY PRELOADER VANTA */
+      setTimeout(() => {
 
-          if (
-            vantaEffect &&
-            typeof vantaEffect.destroy === "function"
-          ) {
+        if (preloader) {
 
+          preloader.remove();
 
-            vantaEffect.destroy();
+        }
 
-            vantaEffect =
-              null;
+      }, 600);
 
+    }, 1500);
 
-          }
-
-
-
-          /* START SITE TOPOLOGY */
-
-          setupSiteTopology();
-
-
-
-          /*
-            Remove preloader from DOM once fade completes.
-          */
-
-          setTimeout(
-            () => {
-
-
-              if (preloader) {
-
-                preloader.remove();
-
-              }
-
-
-            },
-            600
-          );
-
-
-        },
-        1500
-      );
-
-
-    }
-  );
-
+  });
 
 }
-
 
 
 /* =========================================================
    MAIN WEBSITE VANTA TOPOLOGY
    ========================================================= */
 
-// function setupSiteTopology() {
-
-
-//   const siteShell =
-//     document.getElementById(
-//       "site-shell"
-//     );
-
-
-
-//   if (
-//     !siteShell ||
-//     !window.VANTA ||
-//     !window.VANTA.TOPOLOGY
-//   ) {
-
-
-//     return;
-
-//   }
-
-
-
-//   /*
-//     Prevent duplicate topology canvases.
-//   */
-
-//   if (topologyEffect) {
-
-//     return;
-
-//   }
-
-
-
-//   topologyEffect =
-//     VANTA.TOPOLOGY({
-
-//       el:
-//         siteShell,
-
-
-//       mouseControls:
-//         true,
-
-//       touchControls:
-//         true,
-
-//       gyroControls:
-//         false,
-
-
-//       minHeight:
-//         200.0,
-
-//       minWidth:
-//         200.0,
-
-
-//       scale:
-//         1.0,
-
-//       scaleMobile:
-//         1.0,
-
-
-//       /*
-//         SBSDynamics Blue
-//         #2563EB
-//       */
-
-//       color:
-//         0x2563eb,
-
-
-//       /*
-//         SBSDynamics Dark Navy
-//         #050816
-//       */
-
-//       backgroundColor:
-//         0x050816
-
-//     });
-
-
-// }
-
 function setupSiteTopology() {
-  const topologyBg = document.getElementById("topology-bg");
 
-  if (!topologyBg || topologyEffect) return;
+  const topologyBg =
+    document.getElementById("topology-bg");
+
+  if (
+    !topologyBg ||
+    topologyEffect ||
+    !window.VANTA ||
+    !window.VANTA.TOPOLOGY
+  ) {
+
+    return;
+
+  }
 
   topologyEffect = VANTA.TOPOLOGY({
+
     el: topologyBg,
+
     mouseControls: true,
     touchControls: true,
     gyroControls: false,
+
     minHeight: 200,
     minWidth: 200,
+
     scale: 1,
     scaleMobile: 1,
+
     color: 0x2563eb,
     backgroundColor: 0x050816
-  });
-}
 
+  });
+
+}
 
 
 /* =========================================================
    HEADER NAVIGATION
    ========================================================= */
 
-buttons.forEach(
-  (button) => {
+buttons.forEach((button) => {
 
+  button.addEventListener("click", () => {
 
-    button.addEventListener(
-      "click",
-      () => {
+    const page =
+      button.getAttribute("data-page");
 
+    switchPage(page);
 
-        const page =
-          button.getAttribute(
-            "data-page"
-          );
+  });
 
-
-        switchPage(
-          page
-        );
-
-
-      }
-    );
-
-
-  }
-);
-
+});
 
 
 /* =========================================================
@@ -568,36 +295,19 @@ buttons.forEach(
    ========================================================= */
 
 document
-  .querySelectorAll(
-    "[data-page-jump]"
-  )
-  .forEach(
-    (button) => {
+  .querySelectorAll("[data-page-jump]")
+  .forEach((button) => {
 
+    button.addEventListener("click", () => {
 
-      button.addEventListener(
-        "click",
-        () => {
+      const page =
+        button.getAttribute("data-page-jump");
 
+      switchPage(page);
 
-          const page =
-            button.getAttribute(
-              "data-page-jump"
-            );
+    });
 
-
-          switchPage(
-            page
-          );
-
-
-        }
-      );
-
-
-    }
-  );
-
+  });
 
 
 /* =========================================================
@@ -609,87 +319,63 @@ function switchPage(
   updateHash = true
 ) {
 
+  const requestedPage =
+    document.getElementById(pageId);
+
 
   /*
-    Make sure requested page actually exists.
+    Make sure the requested page exists.
   */
-
-  const requestedPage =
-    document.getElementById(
-      pageId
-    );
-
 
   if (
     !requestedPage ||
     !requestedPage.classList.contains("page")
   ) {
 
-    pageId =
-      "home";
+    pageId = "home";
 
   }
 
 
+  /*
+    Update navigation button.
+  */
 
-  /* =======================================================
-     NAV BUTTON
-     ======================================================= */
+  buttons.forEach((button) => {
 
-  buttons.forEach(
-    (button) => {
+    const isActive =
+      button.getAttribute("data-page") === pageId;
 
+    button.classList.toggle(
+      "active",
+      isActive
+    );
 
-      const isActive =
-        button.getAttribute(
-          "data-page"
-        ) === pageId;
-
-
-      button.classList.toggle(
-        "active",
-        isActive
-      );
+  });
 
 
-    }
-  );
+  /*
+    Display only the requested page.
+  */
+
+  pages.forEach((page) => {
+
+    page.classList.toggle(
+      "active-page",
+      page.id === pageId
+    );
+
+  });
 
 
-
-  /* =======================================================
-     PAGE
-     ======================================================= */
-
-  pages.forEach(
-    (page) => {
-
-
-      const isActive =
-        page.id === pageId;
-
-
-      page.classList.toggle(
-        "active-page",
-        isActive
-      );
-
-
-    }
-  );
-
-
-
-  /* =======================================================
-     URL HASH
-     ======================================================= */
+  /*
+    Update URL hash.
+  */
 
   if (
     updateHash &&
-    window.location.hash !==
-      `#${pageId}`
+    window.location.hash !== `#${pageId}`
   ) {
-
 
     history.pushState(
       null,
@@ -697,38 +383,22 @@ function switchPage(
       `#${pageId}`
     );
 
-
   }
 
 
-
-  /* =======================================================
-     SCROLL TOP
-     ======================================================= */
+  /*
+    Always begin a newly selected page at the top.
+  */
 
   window.scrollTo({
 
-    top:
-      0,
-
-    behavior:
-      "smooth"
+    top: 0,
+    left: 0,
+    behavior: "auto"
 
   });
 
-
-
-  /* =======================================================
-     RESIZE MAIN TO CURRENT PAGE
-     ======================================================= */
-
-  requestAnimationFrame(
-    syncMainHeight
-  );
-
-
 }
-
 
 
 /* =========================================================
@@ -737,22 +407,17 @@ function switchPage(
 
 function loadPageFromHash() {
 
-
   const hash =
     window.location.hash.replace(
       "#",
       ""
     );
 
-
   const validPage =
-    Array.from(
-      pages
-    ).some(
+    Array.from(pages).some(
       (page) =>
         page.id === hash
     );
-
 
   switchPage(
     validPage
@@ -761,212 +426,25 @@ function loadPageFromHash() {
     false
   );
 
-
 }
-
 
 
 window.addEventListener(
   "load",
-  () => {
-
-
-    loadPageFromHash();
-
-    requestAnimationFrame(() => {
-  syncMainHeight();
-});
-
-
-  }
+  loadPageFromHash
 );
-
 
 
 window.addEventListener(
   "hashchange",
-  () => {
-
-
-    loadPageFromHash();
-
-
-  }
+  loadPageFromHash
 );
-
 
 
 window.addEventListener(
   "popstate",
-  () => {
-
-
-    loadPageFromHash();
-
-
-  }
+  loadPageFromHash
 );
-
-
-
-/* =========================================================
-   MAIN HEIGHT
-   =========================================================
-
-   The pages use absolute positioning so only one appears.
-
-   This function adjusts MAIN so the footer always sits
-   below the active page instead of overlapping it.
-   ========================================================= */
-
-// function syncMainHeight() {
-
-
-//   if (!mainElement) {
-
-//     return;
-
-//   }
-
-
-
-//   const activePage =
-//     document.querySelector(
-//       ".page.active-page"
-//     );
-
-
-//   if (!activePage) {
-
-//     return;
-
-//   }
-
-
-
-//   const pageInner =
-//     activePage.querySelector(
-//       ".page-inner"
-//     );
-
-
-//   if (!pageInner) {
-
-//     return;
-
-//   }
-
-
-
-//   const viewportMinimum =
-//     Math.max(
-//       window.innerHeight - 190,
-//       500
-//     );
-
-
-
-//   const contentHeight =
-//     pageInner.scrollHeight + 70;
-
-
-
-//   mainElement.style.minHeight =
-//     `${Math.max(
-//       viewportMinimum,
-//       contentHeight
-//     )}px`;
-
-
-
-//   /*
-//     If Vanta exposes its resize method,
-//     update the background after page-height changes.
-//   */
-
-//   if (
-//     topologyEffect &&
-//     typeof topologyEffect.resize === "function"
-//   ) {
-
-
-//     topologyEffect.resize();
-
-
-//   }
-
-
-// }
-
-function syncMainHeight() {
-  const main = document.querySelector("main");
-  const activePage = document.querySelector(".page.active-page");
-  const pageInner = activePage?.querySelector(".page-inner");
-
-  const header = document.querySelector("header");
-  const footer = document.querySelector("footer");
-
-  if (!main || !activePage || !pageInner) return;
-
-  const headerHeight = header ? header.offsetHeight : 0;
-  const footerHeight = footer ? footer.offsetHeight : 0;
-
-  const mainStyles = window.getComputedStyle(main);
-
-  const paddingTop =
-    parseFloat(mainStyles.paddingTop) || 0;
-
-  const paddingBottom =
-    parseFloat(mainStyles.paddingBottom) || 0;
-
-  const availableHeight =
-    window.innerHeight -
-    headerHeight -
-    footerHeight;
-
-  const contentHeight =
-    pageInner.scrollHeight +
-    paddingTop +
-    paddingBottom;
-
-const needsScroll =
-  contentHeight > availableHeight;
-
-  main.style.height =
-    `${Math.max(availableHeight, contentHeight)}px`;
-
-  document.documentElement.classList.toggle(
-    "short-page",
-    !needsScroll
-  );
-
-  document.body.classList.toggle(
-    "short-page",
-    !needsScroll
-  );
-
-  if (!needsScroll) {
-    window.scrollTo(0, 0);
-  }
-}
-
-/* =========================================================
-   WINDOW RESIZE
-   ========================================================= */
-
-window.addEventListener(
-  "resize",
-  () => {
-
-
-    requestAnimationFrame(() => {
-  syncMainHeight();
-});
-
-
-  }
-);
-
 
 
 /* =========================================================
@@ -975,284 +453,225 @@ window.addEventListener(
 
 function renderProjects() {
 
-
   const projectsGrid =
     document.getElementById(
       "projects-grid"
     );
-
-
 
   if (
     !projectsGrid ||
     typeof projects === "undefined"
   ) {
 
-
     return;
 
   }
 
+  projectsGrid.innerHTML = "";
 
 
-  projectsGrid.innerHTML =
-    "";
+  projects.forEach((project) => {
 
+    const card =
+      document.createElement(
+        "article"
+      );
 
+    card.className =
+      "project-card";
 
-  projects.forEach(
-    (project) => {
 
+    /*
+      IMAGE
+    */
 
-      const card =
-        document.createElement(
-          "article"
-        );
+    let imageHTML = "";
 
+    if (project.image) {
 
-      card.className =
-        "project-card";
+      imageHTML = `
 
+        <div class="project-image-wrap">
 
-
-      /* ===================================================
-         IMAGE
-         =================================================== */
-
-      let imageHTML =
-        "";
-
-
-      if (project.image) {
-
-
-        imageHTML = `
-
-          <div class="project-image-wrap">
-
-            <img
-              src="${project.image}"
-              alt="${project.title}"
-              loading="lazy"
-            />
-
-          </div>
-
-        `;
-
-
-      }
-
-
-
-      /* ===================================================
-         LAYERS
-         =================================================== */
-
-      let layersHTML =
-        "";
-
-
-      if (
-        Array.isArray(
-          project.layers
-        ) &&
-        project.layers.length > 0
-      ) {
-
-
-        const layerItems =
-          project.layers
-            .map(
-              (layer) =>
-                `<li>${layer}</li>`
-            )
-            .join("");
-
-
-        layersHTML = `
-
-          <div class="project-layers">
-
-            <h3>
-              Layers
-            </h3>
-
-            <ul>
-
-              ${layerItems}
-
-            </ul>
-
-          </div>
-
-        `;
-
-
-      }
-
-
-
-      /* ===================================================
-         LINKS
-         =================================================== */
-
-      let linksHTML =
-        "";
-
-
-      if (
-        project.github ||
-        project.demo
-      ) {
-
-
-        const githubHTML =
-          project.github
-
-            ? `
-
-              <a
-                class="project-link"
-                href="${project.github}"
-                target="_blank"
-                rel="noopener"
-              >
-                GitHub
-              </a>
-
-            `
-
-            : "";
-
-
-
-        const demoHTML =
-          project.demo
-
-            ? `
-
-              <a
-                class="project-link"
-                href="${project.demo}"
-                target="_blank"
-                rel="noopener"
-              >
-                View Project
-              </a>
-
-            `
-
-            : "";
-
-
-
-        linksHTML = `
-
-          <div class="project-links">
-
-            ${githubHTML}
-
-            ${demoHTML}
-
-          </div>
-
-        `;
-
-
-      }
-
-
-
-      /* ===================================================
-         BUILD PROJECT CARD
-         =================================================== */
-
-      card.innerHTML = `
-
-
-        ${imageHTML}
-
-
-        <div class="project-content">
-
-
-          <div class="project-heading-row">
-
-
-            <h2 class="project-title">
-
-              ${project.title}
-
-            </h2>
-
-
-            ${
-              project.status
-
-                ? `
-
-                  <span class="project-status">
-
-                    ${project.status}
-
-                  </span>
-
-                `
-
-                : ""
-            }
-
-
-          </div>
-
-
-
-          <p class="project-description">
-
-            ${project.description}
-
-          </p>
-
-
-
-          ${layersHTML}
-
-
-
-          ${linksHTML}
-
+          <img
+            src="${project.image}"
+            alt="${project.title}"
+            loading="lazy"
+          />
 
         </div>
 
+      `;
+
+    }
+
+
+    /*
+      LAYERS
+    */
+
+    let layersHTML = "";
+
+    if (
+      Array.isArray(project.layers) &&
+      project.layers.length > 0
+    ) {
+
+      const layerItems =
+        project.layers
+          .map(
+            (layer) =>
+              `<li>${layer}</li>`
+          )
+          .join("");
+
+      layersHTML = `
+
+        <div class="project-layers">
+
+          <h3>
+            Layers
+          </h3>
+
+          <ul>
+
+            ${layerItems}
+
+          </ul>
+
+        </div>
 
       `;
 
+    }
 
 
-      projectsGrid.appendChild(
-        card
-      );
+    /*
+      LINKS
+    */
 
+    let linksHTML = "";
+
+    if (
+      project.github ||
+      project.demo
+    ) {
+
+      const githubHTML =
+        project.github
+
+          ? `
+
+            <a
+              class="project-link"
+              href="${project.github}"
+              target="_blank"
+              rel="noopener"
+            >
+              GitHub
+            </a>
+
+          `
+
+          : "";
+
+
+      const demoHTML =
+        project.demo
+
+          ? `
+
+            <a
+              class="project-link"
+              href="${project.demo}"
+              target="_blank"
+              rel="noopener"
+            >
+              View Project
+            </a>
+
+          `
+
+          : "";
+
+
+      linksHTML = `
+
+        <div class="project-links">
+
+          ${githubHTML}
+
+          ${demoHTML}
+
+        </div>
+
+      `;
 
     }
-  );
 
 
+    /*
+      BUILD CARD
+    */
 
-  requestAnimationFrame(
-    syncMainHeight
-  );
+    card.innerHTML = `
 
+      ${imageHTML}
+
+      <div class="project-content">
+
+        <div class="project-heading-row">
+
+          <h2 class="project-title">
+
+            ${project.title}
+
+          </h2>
+
+          ${
+            project.status
+
+              ? `
+
+                <span class="project-status">
+
+                  ${project.status}
+
+                </span>
+
+              `
+
+              : ""
+          }
+
+        </div>
+
+        <p class="project-description">
+
+          ${project.description}
+
+        </p>
+
+        ${layersHTML}
+
+        ${linksHTML}
+
+      </div>
+
+    `;
+
+    projectsGrid.appendChild(card);
+
+  });
 
 }
 
 
-
-/* BUILD PROJECTS */
+/*
+  Build projects.
+*/
 
 renderProjects();
-
 
 
 /* =========================================================
@@ -1264,18 +683,15 @@ const contactForm =
     "contact-form"
   );
 
-
 const formStatus =
   document.getElementById(
     "form-status"
   );
 
-
 const submitBtn =
   document.getElementById(
     "submit-btn"
   );
-
 
 const submitBtnLabel =
   submitBtn
@@ -1287,30 +703,23 @@ const submitBtnLabel =
     : null;
 
 
-
 if (contactForm) {
-
 
   contactForm.addEventListener(
     "submit",
     async (event) => {
 
-
       event.preventDefault();
-
-
 
       const name =
         contactForm.elements[
           "name"
         ].value.trim();
 
-
       const email =
         contactForm.elements[
           "email"
         ].value.trim();
-
 
       const message =
         contactForm.elements[
@@ -1318,10 +727,9 @@ if (contactForm) {
         ].value.trim();
 
 
-
-      /* ===================================================
-         VALIDATION
-         =================================================== */
+      /*
+        Validation.
+      */
 
       if (
         !name ||
@@ -1329,30 +737,25 @@ if (contactForm) {
         !message
       ) {
 
-
         showStatus(
           "Please fill in all fields.",
           "error"
         );
-
 
         return;
 
       }
 
 
-
-      /* ===================================================
-         SENDING STATE
-         =================================================== */
+      /*
+        Sending state.
+      */
 
       if (submitBtn) {
 
-        submitBtn.disabled =
-          true;
+        submitBtn.disabled = true;
 
       }
-
 
       if (submitBtnLabel) {
 
@@ -1362,21 +765,18 @@ if (contactForm) {
       }
 
 
-
-      /* ===================================================
-         FORMSPREE REQUEST
-         =================================================== */
+      /*
+        Formspree request.
+      */
 
       try {
-
 
         const response =
           await fetch(
             contactForm.action,
             {
 
-              method:
-                "POST",
+              method: "POST",
 
               headers: {
 
@@ -1394,40 +794,35 @@ if (contactForm) {
           );
 
 
-
-        /* SUCCESS */
+        /*
+          Success.
+        */
 
         if (response.ok) {
-
 
           showStatus(
             "Message sent! I'll get back to you soon.",
             "success"
           );
 
-
           contactForm.reset();
-
 
         }
 
 
-
-        /* ERROR */
+        /*
+          Error.
+        */
 
         else {
-
 
           let errorMessage =
             "Something went wrong. Try emailing me directly.";
 
-
           try {
-
 
             const data =
               await response.json();
-
 
             if (
               data.errors &&
@@ -1435,7 +830,6 @@ if (contactForm) {
                 data.errors
               )
             ) {
-
 
               errorMessage =
                 data.errors
@@ -1445,9 +839,7 @@ if (contactForm) {
                   )
                   .join(", ");
 
-
             }
-
 
           }
 
@@ -1459,48 +851,41 @@ if (contactForm) {
 
           }
 
-
-
           showStatus(
             errorMessage,
             "error"
           );
 
-
         }
-
 
       }
 
 
-
-      /* NETWORK FAILURE */
+      /*
+        Network failure.
+      */
 
       catch (error) {
-
 
         showStatus(
           "Network error. Try emailing me directly.",
           "error"
         );
 
-
       }
 
 
-
-      /* RESET BUTTON */
+      /*
+        Restore button.
+      */
 
       finally {
 
-
         if (submitBtn) {
 
-          submitBtn.disabled =
-            false;
+          submitBtn.disabled = false;
 
         }
-
 
         if (submitBtnLabel) {
 
@@ -1509,16 +894,12 @@ if (contactForm) {
 
         }
 
-
       }
-
 
     }
   );
 
-
 }
-
 
 
 /* =========================================================
@@ -1530,51 +911,29 @@ function showStatus(
   type
 ) {
 
-
   if (!formStatus) {
 
     return;
 
   }
 
-
-
   formStatus.textContent =
     message;
-
 
   formStatus.className =
     `form-status ${type}`;
 
 
-  requestAnimationFrame(() => {
-  syncMainHeight();
-});
+  setTimeout(() => {
 
+    formStatus.textContent = "";
 
-  setTimeout(
-    () => {
+    formStatus.className =
+      "form-status";
 
-
-      formStatus.textContent =
-        "";
-
-
-      formStatus.className =
-        "form-status";
-
-requestAnimationFrame(() => {
-  syncMainHeight();
-});
-
-
-    },
-    6000
-  );
-
+  }, 6000);
 
 }
-
 
 
 /* =========================================================
@@ -1583,7 +942,6 @@ requestAnimationFrame(() => {
 
 function setupMusicPlayer() {
 
-
   if (!bgMusic) {
 
     return;
@@ -1591,16 +949,14 @@ function setupMusicPlayer() {
   }
 
 
-
-  /* =======================================================
-     LOAD SAVED VOLUME
-     ======================================================= */
+  /*
+    Load saved volume.
+  */
 
   const savedVolume =
     localStorage.getItem(
       "sbsMusicVolume"
     );
-
 
   const parsedVolume =
     savedVolume !== null
@@ -1610,8 +966,6 @@ function setupMusicPlayer() {
         )
 
       : 12;
-
-
 
   const safeVolume =
     Number.isFinite(
@@ -1628,11 +982,8 @@ function setupMusicPlayer() {
 
       : 12;
 
-
-
   bgMusic.volume =
     safeVolume / 100;
-
 
 
   if (musicVolume) {
@@ -1653,101 +1004,70 @@ function setupMusicPlayer() {
   }
 
 
-
-  /* =======================================================
-     LOAD SAVED MUTE STATE
-     ======================================================= */
+  /*
+    Load saved mute state.
+  */
 
   const savedMuted =
     localStorage.getItem(
       "sbsMusicMuted"
     ) === "true";
 
-
   bgMusic.muted =
     savedMuted;
-
-
 
   updateMusicButtons();
 
 
-
-  /* =======================================================
-     PLAY / PAUSE
-     ======================================================= */
+  /*
+    Play / Pause.
+  */
 
   if (musicPlayBtn) {
-
 
     musicPlayBtn.addEventListener(
       "click",
       () => {
 
-
         if (bgMusic.paused) {
-
 
           bgMusic
             .play()
             .then(
-              () => {
-
-
-                updateMusicButtons();
-
-
-              }
+              updateMusicButtons
             )
             .catch(
-              () => {
-
-
-                updateMusicButtons();
-
-
-              }
+              updateMusicButtons
             );
-
 
         }
 
-
         else {
-
 
           bgMusic.pause();
 
           updateMusicButtons();
 
-
         }
-
 
       }
     );
 
-
   }
 
 
-
-  /* =======================================================
-     MUTE / UNMUTE
-     ======================================================= */
+  /*
+    Mute / Unmute.
+  */
 
   if (musicMuteBtn) {
-
 
     musicMuteBtn.addEventListener(
       "click",
       () => {
 
-
         bgMusic.muted =
           !bgMusic.muted;
-
-
 
         localStorage.setItem(
           "sbsMusicMuted",
@@ -1756,37 +1076,28 @@ function setupMusicPlayer() {
           )
         );
 
-
-
         updateMusicButtons();
-
 
       }
     );
 
-
   }
 
 
-
-  /* =======================================================
-     VOLUME
-     ======================================================= */
+  /*
+    Volume.
+  */
 
   if (musicVolume) {
-
 
     musicVolume.addEventListener(
       "input",
       () => {
 
-
         const value =
           Number(
             musicVolume.value
           );
-
-
 
         const safeValue =
           Math.min(
@@ -1797,11 +1108,8 @@ function setupMusicPlayer() {
             )
           );
 
-
-
         bgMusic.volume =
           safeValue / 100;
-
 
 
         if (volumeValue) {
@@ -1814,7 +1122,6 @@ function setupMusicPlayer() {
         }
 
 
-
         localStorage.setItem(
           "sbsMusicVolume",
           String(
@@ -1823,9 +1130,8 @@ function setupMusicPlayer() {
         );
 
 
-
         /*
-          Raising the volume automatically unmutes.
+          Raising volume automatically unmutes.
         */
 
         if (
@@ -1833,56 +1139,44 @@ function setupMusicPlayer() {
           bgMusic.muted
         ) {
 
-
           bgMusic.muted =
             false;
-
 
           localStorage.setItem(
             "sbsMusicMuted",
             "false"
           );
 
-
         }
 
-
-
         updateMusicButtons();
-
 
       }
     );
 
-
   }
 
 
-
-  /* =======================================================
-     AUDIO EVENTS
-     ======================================================= */
+  /*
+    Audio events.
+  */
 
   bgMusic.addEventListener(
     "play",
     updateMusicButtons
   );
 
-
   bgMusic.addEventListener(
     "pause",
     updateMusicButtons
   );
-
 
   bgMusic.addEventListener(
     "volumechange",
     updateMusicButtons
   );
 
-
 }
-
 
 
 /* =========================================================
@@ -1891,47 +1185,22 @@ function setupMusicPlayer() {
 
 function attemptMusicPlayback() {
 
-
   if (!bgMusic) {
 
     return;
 
   }
 
-
-
   bgMusic
     .play()
     .then(
-      () => {
-
-
-        updateMusicButtons();
-
-
-      }
+      updateMusicButtons
     )
     .catch(
-      () => {
-
-
-        /*
-          Browser blocked autoplay.
-
-          Nothing is wrong.
-
-          Visitor can press the Play button.
-        */
-
-        updateMusicButtons();
-
-
-      }
+      updateMusicButtons
     );
 
-
 }
-
 
 
 /* =========================================================
@@ -1940,7 +1209,6 @@ function attemptMusicPlayback() {
 
 function updateMusicButtons() {
 
-
   if (!bgMusic) {
 
     return;
@@ -1948,116 +1216,94 @@ function updateMusicButtons() {
   }
 
 
-
-  /* =======================================================
-     PLAY / PAUSE ICON
-     ======================================================= */
+  /*
+    Play / Pause icon.
+  */
 
   if (musicPlayBtn) {
 
-
     if (bgMusic.paused) {
-
 
       musicPlayBtn.textContent =
         "▶";
-
 
       musicPlayBtn.setAttribute(
         "aria-label",
         "Play background music"
       );
 
-
     }
-
 
     else {
 
-
       musicPlayBtn.textContent =
         "❚❚";
-
 
       musicPlayBtn.setAttribute(
         "aria-label",
         "Pause background music"
       );
 
-
     }
-
 
   }
 
 
-
-  /* =======================================================
-     MUTE ICON
-     ======================================================= */
+  /*
+    Mute icon.
+  */
 
   if (musicMuteBtn) {
-
 
     if (
       bgMusic.muted ||
       bgMusic.volume === 0
     ) {
 
-
       musicMuteBtn.textContent =
         "🔇";
-
 
       musicMuteBtn.setAttribute(
         "aria-label",
         "Unmute background music"
       );
 
-
     }
-
 
     else {
 
-
       musicMuteBtn.textContent =
         "🔊";
-
 
       musicMuteBtn.setAttribute(
         "aria-label",
         "Mute background music"
       );
 
-
     }
-
 
   }
 
 
-
-  /* =======================================================
-     ANIMATED INDICATOR
-     ======================================================= */
+  /*
+    Animated indicator.
+  */
 
   if (musicIndicator) {
 
-
     musicIndicator.classList.toggle(
+
       "playing",
+
       !bgMusic.paused &&
       !bgMusic.muted &&
       bgMusic.volume > 0
-    );
 
+    );
 
   }
 
-
 }
-
 
 
 /* =========================================================
@@ -2066,12 +1312,10 @@ function updateMusicButtons() {
 
 function setupFooterYear() {
 
-
   const yearElement =
     document.getElementById(
       "copyright-year"
     );
-
 
   if (!yearElement) {
 
@@ -2079,13 +1323,10 @@ function setupFooterYear() {
 
   }
 
-
   yearElement.textContent =
     new Date().getFullYear();
 
-
 }
-
 
 
 /* =========================================================
@@ -2093,7 +1334,6 @@ function setupFooterYear() {
    ========================================================= */
 
 const timezoneList = [
-
 
   {
 
@@ -2105,7 +1345,6 @@ const timezoneList = [
 
   },
 
-
   {
 
     city:
@@ -2115,7 +1354,6 @@ const timezoneList = [
       "Europe/Zurich"
 
   },
-
 
   {
 
@@ -2127,7 +1365,6 @@ const timezoneList = [
 
   },
 
-
   {
 
     city:
@@ -2138,9 +1375,7 @@ const timezoneList = [
 
   }
 
-
 ];
-
 
 
 /* =========================================================
@@ -2150,7 +1385,6 @@ const timezoneList = [
 const tzFormatters =
   timezoneList.map(
     (zone) => ({
-
 
       digital:
 
@@ -2177,7 +1411,6 @@ const tzFormatters =
         ),
 
 
-
       parts:
 
         new Intl.DateTimeFormat(
@@ -2202,10 +1435,8 @@ const tzFormatters =
           }
         )
 
-
     })
   );
-
 
 
 /* =========================================================
@@ -2214,12 +1445,10 @@ const tzFormatters =
 
 function initTimezones() {
 
-
   const container =
     document.getElementById(
       "timezones"
     );
-
 
   if (!container) {
 
@@ -2227,50 +1456,42 @@ function initTimezones() {
 
   }
 
-
-
-  container.innerHTML =
-    "";
-
+  container.innerHTML = "";
 
 
   timezoneList.forEach(
     (zone, index) => {
 
 
-      /* ===================================================
-         WRAPPER
-         =================================================== */
+      /*
+        Wrapper.
+      */
 
       const wrapper =
         document.createElement(
           "div"
         );
 
-
       wrapper.className =
         "tz-item";
 
 
-
-      /* ===================================================
-         CLOCK
-         =================================================== */
+      /*
+        Clock.
+      */
 
       const clock =
         document.createElement(
           "div"
         );
 
-
       clock.className =
         "clock";
 
 
-
-      /* ===================================================
-         TICKS
-         =================================================== */
+      /*
+        Tick marks.
+      */
 
       for (
         let i = 0;
@@ -2278,53 +1499,44 @@ function initTimezones() {
         i++
       ) {
 
-
         const tick =
           document.createElement(
             "div"
           );
 
-
         tick.className =
           "clock-tick";
 
-
         tick.style.transform =
           `translate(-50%, 0) rotate(${i * 30}deg)`;
-
 
         clock.appendChild(
           tick
         );
 
-
       }
 
 
-
-      /* ===================================================
-         CENTER
-         =================================================== */
+      /*
+        Center.
+      */
 
       const center =
         document.createElement(
           "div"
         );
 
-
       center.className =
         "clock-center";
-
 
       clock.appendChild(
         center
       );
 
 
-
-      /* ===================================================
-         HANDS
-         =================================================== */
+      /*
+        Hands.
+      */
 
       [
         "hour",
@@ -2333,111 +1545,86 @@ function initTimezones() {
       ].forEach(
         (type) => {
 
-
           const hand =
             document.createElement(
               "div"
             );
 
-
           hand.className =
             `hand ${type}`;
 
-
           hand.id =
             `${type}-${index}`;
-
 
           clock.appendChild(
             hand
           );
 
-
         }
       );
 
 
-
-      /* ===================================================
-         TEXT
-         =================================================== */
+      /*
+        Text.
+      */
 
       const textWrap =
         document.createElement(
           "div"
         );
 
-
       textWrap.className =
         "tz-text";
 
-
-
-      /* CITY */
 
       const city =
         document.createElement(
           "div"
         );
 
-
       city.className =
         "tz-city";
-
 
       city.textContent =
         zone.city;
 
-
-
-      /* DIGITAL */
 
       const digital =
         document.createElement(
           "div"
         );
 
-
       digital.className =
         "tz-digital";
 
-
       digital.id =
         `digital-${index}`;
-
 
 
       textWrap.appendChild(
         city
       );
 
-
       textWrap.appendChild(
         digital
       );
-
 
       wrapper.appendChild(
         clock
       );
 
-
       wrapper.appendChild(
         textWrap
       );
-
 
       container.appendChild(
         wrapper
       );
 
-
     }
   );
 
-
 }
-
 
 
 /* =========================================================
@@ -2446,15 +1633,11 @@ function initTimezones() {
 
 function updateTimezones() {
 
-
   const now =
     new Date();
 
-
-
   timezoneList.forEach(
     (zone, index) => {
-
 
       const {
         digital,
@@ -2463,61 +1646,51 @@ function updateTimezones() {
         tzFormatters[index];
 
 
-
-      /* ===================================================
-         DIGITAL TIME
-         =================================================== */
+      /*
+        Digital time.
+      */
 
       const digitalElement =
         document.getElementById(
           `digital-${index}`
         );
 
-
       if (digitalElement) {
-
 
         digitalElement.textContent =
           digital.format(
             now
           );
 
-
       }
 
 
-
-      /* ===================================================
-         TIME PARTS
-         =================================================== */
+      /*
+        Extract time parts.
+      */
 
       const timeParts =
         parts.formatToParts(
           now
         );
 
-
       let hour;
       let minute;
       let second;
 
 
-
       timeParts.forEach(
         (part) => {
-
 
           if (
             part.type === "hour"
           ) {
-
 
             hour =
               parseInt(
                 part.value,
                 10
               );
-
 
           }
 
@@ -2526,13 +1699,11 @@ function updateTimezones() {
             part.type === "minute"
           ) {
 
-
             minute =
               parseInt(
                 part.value,
                 10
               );
-
 
           }
 
@@ -2541,20 +1712,16 @@ function updateTimezones() {
             part.type === "second"
           ) {
 
-
             second =
               parseInt(
                 part.value,
                 10
               );
 
-
           }
-
 
         }
       );
-
 
 
       if (
@@ -2563,23 +1730,20 @@ function updateTimezones() {
         second == null
       ) {
 
-
         return;
 
       }
 
 
-
-      /* ===================================================
-         HAND ANGLES
-         =================================================== */
+      /*
+        Hand angles.
+      */
 
       const hourAngle =
         (
           hour % 12 +
           minute / 60
         ) * 30;
-
 
 
       const minuteAngle =
@@ -2589,27 +1753,23 @@ function updateTimezones() {
         ) * 6;
 
 
-
       const secondAngle =
         second * 6;
 
 
-
-      /* ===================================================
-         HAND ELEMENTS
-         =================================================== */
+      /*
+        Hand elements.
+      */
 
       const hourHand =
         document.getElementById(
           `hour-${index}`
         );
 
-
       const minuteHand =
         document.getElementById(
           `minute-${index}`
         );
-
 
       const secondHand =
         document.getElementById(
@@ -2617,64 +1777,38 @@ function updateTimezones() {
         );
 
 
-
-      /* ===================================================
-         ROTATE HANDS
-         =================================================== */
+      /*
+        Rotate hands.
+      */
 
       if (hourHand) {
 
-
         hourHand.style.transform =
           `translate(-50%, -100%) rotate(${hourAngle}deg)`;
-
 
       }
 
 
       if (minuteHand) {
 
-
         minuteHand.style.transform =
           `translate(-50%, -100%) rotate(${minuteAngle}deg)`;
-
 
       }
 
 
       if (secondHand) {
 
-
         secondHand.style.transform =
           `translate(-50%, -100%) rotate(${secondAngle}deg)`;
 
-
       }
-
 
     }
   );
 
-
 }
 
-window.addEventListener("scroll", () => {
-  const activePage = document.querySelector(".page.active-page");
-
-  if (!activePage || activePage.id !== "about") return;
-
-  const maxScroll =
-    document.documentElement.scrollHeight -
-    window.innerHeight;
-
-  if (window.scrollY > maxScroll) {
-    window.scrollTo(0, maxScroll);
-  }
-
-  if (window.scrollY < 0) {
-    window.scrollTo(0, 0);
-  }
-});
 
 /* =========================================================
    START CLOCKS
@@ -2683,7 +1817,6 @@ window.addEventListener("scroll", () => {
 initTimezones();
 
 updateTimezones();
-
 
 setInterval(
   updateTimezones,
