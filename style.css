@@ -284,6 +284,27 @@ html.skip-preloader
 
 }
 
+#topology-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#site-shell {
+  position: relative;
+  z-index: 1;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: transparent;
+}
 
 @keyframes preloaderBgIn {
 
@@ -330,7 +351,7 @@ html.skip-preloader
   object-fit:
     contain;
 
-  transform: translateX(-12px);
+  transform: translateX(-13px);
 }
 
 
@@ -1270,8 +1291,11 @@ main {
   position:
     relative;
 
+  flex:
+    1 0 auto;
+
   min-height:
-    calc(100vh - 160px);
+    0;
 
 }
 
@@ -2924,6 +2948,12 @@ span:nth-child(3) {
   width:
     100%;
 
+  margin-top:
+    auto;
+
+  flex-shrink:
+    0;
+
   padding:
     24px 16px;
 
@@ -3429,3 +3459,16 @@ span:nth-child(3) {
 
 
 }
+
+html.short-page,
+body.short-page {
+  overflow-y: hidden !important;
+  overscroll-behavior-y: none;
+}
+
+html:has(#about.active-page),
+body:has(#about.active-page) {
+  overflow-y: hidden !important;
+  overscroll-behavior-y: none;
+}
+

@@ -3,6 +3,67 @@
 
 const projects = [
 
+
+{
+  title: "Wireless Motion Detection and Alert System",
+  status: "Planning and Development",
+  image: "assets/motion-detector.jpg",
+
+  description:
+    "An ongoing embedded systems project focused on developing a wireless motion detection and camera monitoring system. The project is currently in the planning and architecture phase, beginning with systems engineering activities such as requirements definition, interface planning, system architecture, and verification planning. The current design uses an ESP32, OV7670 camera, PIR motion sensor, and active buzzer with MQTT communication between the embedded device and a JavaScript based server. The server will process incoming events and provide notifications through a mobile application or messaging service. Server side AI or machine learning capabilities may also be explored as the project develops.",
+
+  layers: [
+    "Systems Engineering: Defining requirements, system architecture, interfaces, risks, and planned verification activities",
+    "Embedded Hardware: ESP32, OV7670 camera, PIR motion sensor, and active buzzer",
+    "Firmware: Embedded software development in C",
+    "Communication: MQTT messaging between the embedded system and server",
+    "Backend: JavaScript based server for device communication, event processing, and system coordination",
+    "Notifications: Planned mobile application or messaging based alerts",
+    "AI and ML: Potential server side integration for intelligent image or event analysis",
+    "Development: Architecture and implementation are subject to change as prototyping and testing progress"
+  ],
+
+  github: "",
+  demo: ""
+},
+
+
+{
+  title: "CLI Employee Scheduling System",
+  status: "Design Phase",
+  image: "assets/employee-scheduler.jpg",
+
+  description:
+    "An ongoing software project focused on developing a lightweight employee scheduling system that runs entirely through a terminal interface. The current concept allows a user to enter up to ten employees, record individual availability, and generate a proposed schedule using a scheduling algorithm. The program will also support reviewing and modifying schedule information as the design develops. The project is currently in the requirements and design phase, with the architecture and implementation subject to change as development progresses.",
+
+  layers: [
+    "Systems Engineering: Defining requirements, scheduling rules, constraints, inputs, outputs, and validation criteria",
+    "Programming: Planned implementation in C or C++",
+    "Interface: Terminal based command line interface",
+    "Data Input: Employee names and individual availability for up to ten employees",
+    "Algorithm: Scheduling logic designed to evaluate availability and generate a proposed work schedule",
+    "Editing: Planned ability to review and modify employee or schedule information",
+    "Validation: Test cases will be developed to verify scheduling behavior and constraint handling",
+    "Development: Currently in the design phase with features and implementation subject to change"
+  ],
+
+  github: "",
+  demo: ""
+},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   {
     title: "Smart Power Connector",
     status: "Completed",
@@ -31,11 +92,11 @@ const projects = [
     image: "assets/smart-intersection.jpg",
 
     description:
-      "A computer vision and engineering analysis project designed to evaluate intersection behavior using Python and OpenCV. The system processed visual information, analyzed traffic conditions, and translated the resulting data into useful recommendations for system operation and decision support.",
+      "A computer vision and engineering analysis project designed to evaluate intersection behavior using Python, Yolov3, and OpenCV. The system processed visual information, analyzed traffic conditions, and translated the resulting data into useful recommendations for system operation and decision support.",
 
     layers: [
       "Programming: Developed the analysis workflow using Python",
-      "Computer Vision: Used OpenCV to process and analyze visual traffic information",
+      "Computer Vision: Used YoloV3 & OpenCV to process and analyze visual traffic information",
       "Analysis: Evaluated system behavior and traffic conditions from collected data",
       "Decision Support: Converted analysis results into actionable recommendations",
       "Validation: Reviewed system outputs to confirm expected behavior and analysis results"

@@ -1,6 +1,4 @@
-/* =========================================================
-   SBSDYNAMICS MAIN JAVASCRIPT
-   ========================================================= */
+
 
 
 /* =========================================================
@@ -423,92 +421,111 @@ function setupPreloader() {
    MAIN WEBSITE VANTA TOPOLOGY
    ========================================================= */
 
+// function setupSiteTopology() {
+
+
+//   const siteShell =
+//     document.getElementById(
+//       "site-shell"
+//     );
+
+
+
+//   if (
+//     !siteShell ||
+//     !window.VANTA ||
+//     !window.VANTA.TOPOLOGY
+//   ) {
+
+
+//     return;
+
+//   }
+
+
+
+//   /*
+//     Prevent duplicate topology canvases.
+//   */
+
+//   if (topologyEffect) {
+
+//     return;
+
+//   }
+
+
+
+//   topologyEffect =
+//     VANTA.TOPOLOGY({
+
+//       el:
+//         siteShell,
+
+
+//       mouseControls:
+//         true,
+
+//       touchControls:
+//         true,
+
+//       gyroControls:
+//         false,
+
+
+//       minHeight:
+//         200.0,
+
+//       minWidth:
+//         200.0,
+
+
+//       scale:
+//         1.0,
+
+//       scaleMobile:
+//         1.0,
+
+
+//       /*
+//         SBSDynamics Blue
+//         #2563EB
+//       */
+
+//       color:
+//         0x2563eb,
+
+
+//       /*
+//         SBSDynamics Dark Navy
+//         #050816
+//       */
+
+//       backgroundColor:
+//         0x050816
+
+//     });
+
+
+// }
+
 function setupSiteTopology() {
+  const topologyBg = document.getElementById("topology-bg");
 
+  if (!topologyBg || topologyEffect) return;
 
-  const siteShell =
-    document.getElementById(
-      "site-shell"
-    );
-
-
-
-  if (
-    !siteShell ||
-    !window.VANTA ||
-    !window.VANTA.TOPOLOGY
-  ) {
-
-
-    return;
-
-  }
-
-
-
-  /*
-    Prevent duplicate topology canvases.
-  */
-
-  if (topologyEffect) {
-
-    return;
-
-  }
-
-
-
-  topologyEffect =
-    VANTA.TOPOLOGY({
-
-      el:
-        siteShell,
-
-
-      mouseControls:
-        true,
-
-      touchControls:
-        true,
-
-      gyroControls:
-        false,
-
-
-      minHeight:
-        200.0,
-
-      minWidth:
-        200.0,
-
-
-      scale:
-        1.0,
-
-      scaleMobile:
-        1.0,
-
-
-      /*
-        SBSDynamics Blue
-        #2563EB
-      */
-
-      color:
-        0x2563eb,
-
-
-      /*
-        SBSDynamics Dark Navy
-        #050816
-      */
-
-      backgroundColor:
-        0x050816
-
-    });
-
-
+  topologyEffect = VANTA.TOPOLOGY({
+    el: topologyBg,
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200,
+    minWidth: 200,
+    scale: 1,
+    scaleMobile: 1,
+    color: 0x2563eb,
+    backgroundColor: 0x050816
+  });
 }
 
 
@@ -756,7 +773,9 @@ window.addEventListener(
 
     loadPageFromHash();
 
-    syncMainHeight();
+    requestAnimationFrame(() => {
+  syncMainHeight();
+});
 
 
   }
@@ -800,86 +819,136 @@ window.addEventListener(
    below the active page instead of overlapping it.
    ========================================================= */
 
+// function syncMainHeight() {
+
+
+//   if (!mainElement) {
+
+//     return;
+
+//   }
+
+
+
+//   const activePage =
+//     document.querySelector(
+//       ".page.active-page"
+//     );
+
+
+//   if (!activePage) {
+
+//     return;
+
+//   }
+
+
+
+//   const pageInner =
+//     activePage.querySelector(
+//       ".page-inner"
+//     );
+
+
+//   if (!pageInner) {
+
+//     return;
+
+//   }
+
+
+
+//   const viewportMinimum =
+//     Math.max(
+//       window.innerHeight - 190,
+//       500
+//     );
+
+
+
+//   const contentHeight =
+//     pageInner.scrollHeight + 70;
+
+
+
+//   mainElement.style.minHeight =
+//     `${Math.max(
+//       viewportMinimum,
+//       contentHeight
+//     )}px`;
+
+
+
+//   /*
+//     If Vanta exposes its resize method,
+//     update the background after page-height changes.
+//   */
+
+//   if (
+//     topologyEffect &&
+//     typeof topologyEffect.resize === "function"
+//   ) {
+
+
+//     topologyEffect.resize();
+
+
+//   }
+
+
+// }
+
 function syncMainHeight() {
+  const main = document.querySelector("main");
+  const activePage = document.querySelector(".page.active-page");
+  const pageInner = activePage?.querySelector(".page-inner");
 
+  const header = document.querySelector("header");
+  const footer = document.querySelector("footer");
 
-  if (!mainElement) {
+  if (!main || !activePage || !pageInner) return;
 
-    return;
+  const headerHeight = header ? header.offsetHeight : 0;
+  const footerHeight = footer ? footer.offsetHeight : 0;
 
-  }
+  const mainStyles = window.getComputedStyle(main);
 
+  const paddingTop =
+    parseFloat(mainStyles.paddingTop) || 0;
 
+  const paddingBottom =
+    parseFloat(mainStyles.paddingBottom) || 0;
 
-  const activePage =
-    document.querySelector(
-      ".page.active-page"
-    );
-
-
-  if (!activePage) {
-
-    return;
-
-  }
-
-
-
-  const pageInner =
-    activePage.querySelector(
-      ".page-inner"
-    );
-
-
-  if (!pageInner) {
-
-    return;
-
-  }
-
-
-
-  const viewportMinimum =
-    Math.max(
-      window.innerHeight - 190,
-      500
-    );
-
-
+  const availableHeight =
+    window.innerHeight -
+    headerHeight -
+    footerHeight;
 
   const contentHeight =
-    pageInner.scrollHeight + 70;
+    pageInner.scrollHeight +
+    paddingTop +
+    paddingBottom;
 
+const needsScroll =
+  contentHeight > availableHeight;
 
+  main.style.height =
+    `${Math.max(availableHeight, contentHeight)}px`;
 
-  mainElement.style.minHeight =
-    `${Math.max(
-      viewportMinimum,
-      contentHeight
-    )}px`;
+  document.documentElement.classList.toggle(
+    "short-page",
+    !needsScroll
+  );
 
+  document.body.classList.toggle(
+    "short-page",
+    !needsScroll
+  );
 
-
-  /*
-    If Vanta exposes its resize method,
-    update the background after page-height changes.
-  */
-
-  if (
-    topologyEffect &&
-    typeof topologyEffect.resize === "function"
-  ) {
-
-
-    topologyEffect.resize();
-
-
+  if (!needsScroll) {
+    window.scrollTo(0, 0);
   }
-
-
 }
-
-
 
 /* =========================================================
    WINDOW RESIZE
@@ -890,7 +959,9 @@ window.addEventListener(
   () => {
 
 
-    syncMainHeight();
+    requestAnimationFrame(() => {
+  syncMainHeight();
+});
 
 
   }
@@ -1476,8 +1547,9 @@ function showStatus(
     `form-status ${type}`;
 
 
+  requestAnimationFrame(() => {
   syncMainHeight();
-
+});
 
 
   setTimeout(
@@ -1491,8 +1563,9 @@ function showStatus(
       formStatus.className =
         "form-status";
 
-
-      syncMainHeight();
+requestAnimationFrame(() => {
+  syncMainHeight();
+});
 
 
     },
@@ -2585,7 +2658,23 @@ function updateTimezones() {
 
 }
 
+window.addEventListener("scroll", () => {
+  const activePage = document.querySelector(".page.active-page");
 
+  if (!activePage || activePage.id !== "about") return;
+
+  const maxScroll =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+  if (window.scrollY > maxScroll) {
+    window.scrollTo(0, maxScroll);
+  }
+
+  if (window.scrollY < 0) {
+    window.scrollTo(0, 0);
+  }
+});
 
 /* =========================================================
    START CLOCKS
