@@ -1,14 +1,9 @@
-/* =========================================================
-   VANTA EFFECTS
-   ========================================================= */
+// Main site functionality
 
 let vantaEffect = null;
 let topologyEffect = null;
 
 
-/* =========================================================
-   PAGE ELEMENTS
-   ========================================================= */
 
 const buttons = document.querySelectorAll(
   "nav button[data-page]"
@@ -19,9 +14,6 @@ const pages = document.querySelectorAll(
 );
 
 
-/* =========================================================
-   MUSIC ELEMENTS
-   ========================================================= */
 
 const bgMusic = document.getElementById("bg-music");
 const musicPlayBtn = document.getElementById("music-play");
@@ -31,9 +23,6 @@ const volumeValue = document.getElementById("volume-value");
 const musicIndicator = document.getElementById("music-indicator");
 
 
-/* =========================================================
-   DOM READY
-   ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -48,11 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("preloader-bg");
 
 
-  /*
-    Only create the NET preloader animation
-    on a fresh entrance.
-  */
-
+  
   if (
     !alreadyEntered &&
     preloaderBg &&
@@ -90,9 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/* =========================================================
-   PRELOADER
-   ========================================================= */
 
 function setupPreloader() {
 
@@ -109,10 +91,7 @@ function setupPreloader() {
     sessionStorage.getItem("sbsEntered") === "true";
 
 
-  /*
-    REFRESH / ALREADY ENTERED
-  */
-
+  
   if (alreadyEntered) {
 
     if (preloader) {
@@ -130,10 +109,7 @@ function setupPreloader() {
   }
 
 
-  /*
-    PRELOADER MISSING
-  */
-
+  
   if (
     !preloader ||
     !enterBtn ||
@@ -147,10 +123,7 @@ function setupPreloader() {
   }
 
 
-  /*
-    ENTER WEBSITE
-  */
-
+  
   enterBtn.addEventListener("click", () => {
 
     sessionStorage.setItem(
@@ -165,10 +138,7 @@ function setupPreloader() {
     );
 
 
-    /*
-      Wait for logo animation.
-    */
-
+    
     setTimeout(() => {
 
       preloader.classList.add(
@@ -176,20 +146,14 @@ function setupPreloader() {
       );
 
 
-      /*
-        Open Home.
-      */
-
+      
       switchPage(
         "home",
         false
       );
 
 
-      /*
-        Destroy preloader Vanta effect.
-      */
-
+      
       if (
         vantaEffect &&
         typeof vantaEffect.destroy === "function"
@@ -202,17 +166,11 @@ function setupPreloader() {
       }
 
 
-      /*
-        Start portfolio topology.
-      */
-
+      
       setupSiteTopology();
 
 
-      /*
-        Remove preloader after fade.
-      */
-
+      
       setTimeout(() => {
 
         if (preloader) {
@@ -230,9 +188,6 @@ function setupPreloader() {
 }
 
 
-/* =========================================================
-   MAIN WEBSITE VANTA TOPOLOGY
-   ========================================================= */
 
 function setupSiteTopology() {
 
@@ -272,9 +227,6 @@ function setupSiteTopology() {
 }
 
 
-/* =========================================================
-   HEADER NAVIGATION
-   ========================================================= */
 
 buttons.forEach((button) => {
 
@@ -290,9 +242,6 @@ buttons.forEach((button) => {
 });
 
 
-/* =========================================================
-   INTERNAL PAGE NAVIGATION
-   ========================================================= */
 
 document
   .querySelectorAll("[data-page-jump]")
@@ -310,9 +259,6 @@ document
   });
 
 
-/* =========================================================
-   SWITCH PAGE
-   ========================================================= */
 
 function switchPage(
   pageId,
@@ -323,10 +269,7 @@ function switchPage(
     document.getElementById(pageId);
 
 
-  /*
-    Make sure the requested page exists.
-  */
-
+  
   if (
     !requestedPage ||
     !requestedPage.classList.contains("page")
@@ -337,10 +280,7 @@ function switchPage(
   }
 
 
-  /*
-    Update navigation button.
-  */
-
+  
   buttons.forEach((button) => {
 
     const isActive =
@@ -354,10 +294,7 @@ function switchPage(
   });
 
 
-  /*
-    Display only the requested page.
-  */
-
+  
   pages.forEach((page) => {
 
     page.classList.toggle(
@@ -368,10 +305,7 @@ function switchPage(
   });
 
 
-  /*
-    Update URL hash.
-  */
-
+  
   if (
     updateHash &&
     window.location.hash !== `#${pageId}`
@@ -386,10 +320,7 @@ function switchPage(
   }
 
 
-  /*
-    Always begin a newly selected page at the top.
-  */
-
+  
   window.scrollTo({
 
     top: 0,
@@ -401,9 +332,6 @@ function switchPage(
 }
 
 
-/* =========================================================
-   HASH / BACK BUTTON SUPPORT
-   ========================================================= */
 
 function loadPageFromHash() {
 
@@ -447,9 +375,6 @@ window.addEventListener(
 );
 
 
-/* =========================================================
-   PROJECT RENDERER
-   ========================================================= */
 
 function renderProjects() {
 
@@ -481,10 +406,7 @@ function renderProjects() {
       "project-card";
 
 
-    /*
-      IMAGE
-    */
-
+    
     let imageHTML = "";
 
     if (project.image) {
@@ -506,10 +428,7 @@ function renderProjects() {
     }
 
 
-    /*
-      LAYERS
-    */
-
+    
     let layersHTML = "";
 
     if (
@@ -546,10 +465,7 @@ function renderProjects() {
     }
 
 
-    /*
-      LINKS
-    */
-
+    
     let linksHTML = "";
 
     if (
@@ -610,10 +526,7 @@ function renderProjects() {
     }
 
 
-    /*
-      BUILD CARD
-    */
-
+    
     card.innerHTML = `
 
       ${imageHTML}
@@ -667,16 +580,10 @@ function renderProjects() {
 }
 
 
-/*
-  Build projects.
-*/
 
 renderProjects();
 
 
-/* =========================================================
-   CONTACT FORM
-   ========================================================= */
 
 const contactForm =
   document.getElementById(
@@ -727,10 +634,7 @@ if (contactForm) {
         ].value.trim();
 
 
-      /*
-        Validation.
-      */
-
+      
       if (
         !name ||
         !email ||
@@ -747,10 +651,7 @@ if (contactForm) {
       }
 
 
-      /*
-        Sending state.
-      */
-
+      
       if (submitBtn) {
 
         submitBtn.disabled = true;
@@ -765,10 +666,7 @@ if (contactForm) {
       }
 
 
-      /*
-        Formspree request.
-      */
-
+      
       try {
 
         const response =
@@ -794,10 +692,7 @@ if (contactForm) {
           );
 
 
-        /*
-          Success.
-        */
-
+        
         if (response.ok) {
 
           showStatus(
@@ -810,10 +705,7 @@ if (contactForm) {
         }
 
 
-        /*
-          Error.
-        */
-
+        
         else {
 
           let errorMessage =
@@ -845,10 +737,7 @@ if (contactForm) {
 
           catch (parseError) {
 
-            /*
-              Use default error message.
-            */
-
+            
           }
 
           showStatus(
@@ -861,10 +750,7 @@ if (contactForm) {
       }
 
 
-      /*
-        Network failure.
-      */
-
+      
       catch (error) {
 
         showStatus(
@@ -875,10 +761,7 @@ if (contactForm) {
       }
 
 
-      /*
-        Restore button.
-      */
-
+      
       finally {
 
         if (submitBtn) {
@@ -902,9 +785,6 @@ if (contactForm) {
 }
 
 
-/* =========================================================
-   CONTACT FORM STATUS
-   ========================================================= */
 
 function showStatus(
   message,
@@ -936,9 +816,6 @@ function showStatus(
 }
 
 
-/* =========================================================
-   BACKGROUND MUSIC
-   ========================================================= */
 
 function setupMusicPlayer() {
 
@@ -949,10 +826,7 @@ function setupMusicPlayer() {
   }
 
 
-  /*
-    Load saved volume.
-  */
-
+  
   const savedVolume =
     localStorage.getItem(
       "sbsMusicVolume"
@@ -1004,10 +878,7 @@ function setupMusicPlayer() {
   }
 
 
-  /*
-    Load saved mute state.
-  */
-
+  
   const savedMuted =
     localStorage.getItem(
       "sbsMusicMuted"
@@ -1019,10 +890,7 @@ function setupMusicPlayer() {
   updateMusicButtons();
 
 
-  /*
-    Play / Pause.
-  */
-
+  
   if (musicPlayBtn) {
 
     musicPlayBtn.addEventListener(
@@ -1056,10 +924,7 @@ function setupMusicPlayer() {
   }
 
 
-  /*
-    Mute / Unmute.
-  */
-
+  
   if (musicMuteBtn) {
 
     musicMuteBtn.addEventListener(
@@ -1084,10 +949,7 @@ function setupMusicPlayer() {
   }
 
 
-  /*
-    Volume.
-  */
-
+  
   if (musicVolume) {
 
     musicVolume.addEventListener(
@@ -1130,10 +992,7 @@ function setupMusicPlayer() {
         );
 
 
-        /*
-          Raising volume automatically unmutes.
-        */
-
+        
         if (
           safeValue > 0 &&
           bgMusic.muted
@@ -1157,10 +1016,7 @@ function setupMusicPlayer() {
   }
 
 
-  /*
-    Audio events.
-  */
-
+  
   bgMusic.addEventListener(
     "play",
     updateMusicButtons
@@ -1179,9 +1035,6 @@ function setupMusicPlayer() {
 }
 
 
-/* =========================================================
-   ATTEMPT MUSIC PLAYBACK
-   ========================================================= */
 
 function attemptMusicPlayback() {
 
@@ -1203,9 +1056,6 @@ function attemptMusicPlayback() {
 }
 
 
-/* =========================================================
-   UPDATE MUSIC CONTROLS
-   ========================================================= */
 
 function updateMusicButtons() {
 
@@ -1216,10 +1066,7 @@ function updateMusicButtons() {
   }
 
 
-  /*
-    Play / Pause icon.
-  */
-
+  
   if (musicPlayBtn) {
 
     if (bgMusic.paused) {
@@ -1249,10 +1096,7 @@ function updateMusicButtons() {
   }
 
 
-  /*
-    Mute icon.
-  */
-
+  
   if (musicMuteBtn) {
 
     if (
@@ -1285,10 +1129,7 @@ function updateMusicButtons() {
   }
 
 
-  /*
-    Animated indicator.
-  */
-
+  
   if (musicIndicator) {
 
     musicIndicator.classList.toggle(
@@ -1306,9 +1147,6 @@ function updateMusicButtons() {
 }
 
 
-/* =========================================================
-   FOOTER YEAR
-   ========================================================= */
 
 function setupFooterYear() {
 
@@ -1329,9 +1167,6 @@ function setupFooterYear() {
 }
 
 
-/* =========================================================
-   TIMEZONES
-   ========================================================= */
 
 const timezoneList = [
 
@@ -1378,9 +1213,6 @@ const timezoneList = [
 ];
 
 
-/* =========================================================
-   TIME FORMATTERS
-   ========================================================= */
 
 const tzFormatters =
   timezoneList.map(
@@ -1439,9 +1271,6 @@ const tzFormatters =
   );
 
 
-/* =========================================================
-   INITIALIZE CLOCKS
-   ========================================================= */
 
 function initTimezones() {
 
@@ -1463,10 +1292,7 @@ function initTimezones() {
     (zone, index) => {
 
 
-      /*
-        Wrapper.
-      */
-
+      
       const wrapper =
         document.createElement(
           "div"
@@ -1476,10 +1302,7 @@ function initTimezones() {
         "tz-item";
 
 
-      /*
-        Clock.
-      */
-
+      
       const clock =
         document.createElement(
           "div"
@@ -1489,10 +1312,7 @@ function initTimezones() {
         "clock";
 
 
-      /*
-        Tick marks.
-      */
-
+      
       for (
         let i = 0;
         i < 12;
@@ -1517,10 +1337,7 @@ function initTimezones() {
       }
 
 
-      /*
-        Center.
-      */
-
+      
       const center =
         document.createElement(
           "div"
@@ -1534,10 +1351,7 @@ function initTimezones() {
       );
 
 
-      /*
-        Hands.
-      */
-
+      
       [
         "hour",
         "minute",
@@ -1564,10 +1378,7 @@ function initTimezones() {
       );
 
 
-      /*
-        Text.
-      */
-
+      
       const textWrap =
         document.createElement(
           "div"
@@ -1627,9 +1438,6 @@ function initTimezones() {
 }
 
 
-/* =========================================================
-   UPDATE CLOCKS
-   ========================================================= */
 
 function updateTimezones() {
 
@@ -1646,10 +1454,7 @@ function updateTimezones() {
         tzFormatters[index];
 
 
-      /*
-        Digital time.
-      */
-
+      
       const digitalElement =
         document.getElementById(
           `digital-${index}`
@@ -1665,10 +1470,7 @@ function updateTimezones() {
       }
 
 
-      /*
-        Extract time parts.
-      */
-
+      
       const timeParts =
         parts.formatToParts(
           now
@@ -1735,9 +1537,7 @@ function updateTimezones() {
       }
 
 
-      /*
-        Hand angles.
-      */
+      
 
       const hourAngle =
         (
@@ -1757,10 +1557,7 @@ function updateTimezones() {
         second * 6;
 
 
-      /*
-        Hand elements.
-      */
-
+      
       const hourHand =
         document.getElementById(
           `hour-${index}`
@@ -1777,10 +1574,7 @@ function updateTimezones() {
         );
 
 
-      /*
-        Rotate hands.
-      */
-
+      
       if (hourHand) {
 
         hourHand.style.transform =
@@ -1810,9 +1604,6 @@ function updateTimezones() {
 }
 
 
-/* =========================================================
-   START CLOCKS
-   ========================================================= */
 
 initTimezones();
 
